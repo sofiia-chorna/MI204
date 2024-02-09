@@ -36,7 +36,7 @@ def get_image(path):
     return np.float64(cv2.imread(path, cv2.IMREAD_GRAYSCALE))
 
 
-def apply_direct_method(img, kernel):
+def apply_direct_convolution(img, kernel):
     # Obtenir le largeur et le hateur d'image
     (h, w) = img.shape
 
@@ -60,7 +60,7 @@ def apply_direct_method(img, kernel):
     cv2.waitKey(0)
 
 
-def apply_filter2D(img, kernel):
+def apply_cv_convolution(img, kernel):
     # Applique l'algo
     start_time = cv2.getTickCount()
     img_convolution = cv2.filter2D(img, -1, kernel)
@@ -76,7 +76,7 @@ def apply_filter2D(img, kernel):
     cv2.waitKey(0)
 
 
-def apply_mask_sobel(img):
+def apply_direct_mask_sobel(img):
     start_time = cv2.getTickCount()
     gradient = calculate_gradient(img)
     end_time = cv2.getTickCount()
@@ -95,7 +95,7 @@ image = get_image(path='Image_Pairs/FlowerGarden2.png')
 (h, w) = image.shape
 print("Dimension de l'image :", h, "lignes x", w, "colonnes")
 
-apply_direct_method(image, kernel=SHARPEN_KERNEL)
-apply_filter2D(image, kernel=SHARPEN_KERNEL)
-apply_mask_sobel(image)
+apply_direct_convolution(image, kernel=SHARPEN_KERNEL)
+apply_cv_convolution(image, kernel=SHARPEN_KERNEL)
 
+apply_direct_mask_sobel(image)
